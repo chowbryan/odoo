@@ -6,6 +6,7 @@
 # Martin Trigaux, 2021
 # Alexandra Jubert <aju@odoo.com>, 2021
 # Geoffrey_GMF <gmf@odoo.com>, 2021
+# Cédric Thiry <cth@odoo.com>, 2021
 # Camille Dantinne <cmd@odoo.com>, 2021
 # Cécile Collart <cco@odoo.com>, 2021
 # 
@@ -582,11 +583,11 @@ msgstr ""
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.course_sidebar
 msgid ""
-"<span class=\"badge badge-pill badge-success py-1 px-2 mx-auto\" style"
-"=\"font-size: 1em\"><i class=\"fa fa-check\"/> Completed</span>"
+"<span class=\"badge badge-pill badge-success py-1 px-2 mx-auto\" "
+"style=\"font-size: 1em\"><i class=\"fa fa-check\"/> Completed</span>"
 msgstr ""
-"<span class=\"badge badge-pill badge-success py-1 px-2 mx-auto\" style"
-"=\"font-size: 1em\"><i class=\"fa fa-check\"/> Terminé</span>"
+"<span class=\"badge badge-pill badge-success py-1 px-2 mx-auto\" "
+"style=\"font-size: 1em\"><i class=\"fa fa-check\"/> Terminé</span>"
 
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.slide_fullscreen
@@ -1969,7 +1970,7 @@ msgstr "Cours terminé"
 #: code:addons/website_slides/models/slide_channel.py:0
 #, python-format
 msgid "Course not published yet"
-msgstr ""
+msgstr "Cours pas encore publié"
 
 #. module: website_slides
 #: model:ir.model.fields,field_description:website_slides.field_slide_channel__karma_gen_channel_rank
@@ -2382,6 +2383,7 @@ msgstr "Courriel"
 #: model:ir.model.fields,help:website_slides.field_slide_channel__publish_template_id
 msgid "Email attendees once a new content is published"
 msgstr ""
+"Envoyez un email aux participants une fois qu'un nouveau contenu est publié"
 
 #. module: website_slides
 #: model:ir.model.fields,help:website_slides.field_slide_channel__completed_template_id
@@ -3072,7 +3074,7 @@ msgstr "Est complété"
 #. module: website_slides
 #: model:ir.model.fields,field_description:website_slides.field_slide_channel_invite__is_mail_template_editor
 msgid "Is Editor"
-msgstr ""
+msgstr "Est Editeur"
 
 #. module: website_slides
 #: model:ir.model.fields,field_description:website_slides.field_slide_channel__message_is_follower
@@ -3571,6 +3573,7 @@ msgstr "Nouveau cours"
 #: model:mail.template,subject:website_slides.slide_template_published
 msgid "New {{ object.slide_type }} published on {{ object.channel_id.name }}"
 msgstr ""
+"Nouveau {{ object.slide_type }} publié sur {{ object.channel_id.name }}"
 
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.course_slides_cards
@@ -4626,7 +4629,7 @@ msgstr "Slide / Partner decorated m2m"
 #. module: website_slides
 #: model:mail.template,name:website_slides.slide_template_published
 msgid "Slide Published"
-msgstr ""
+msgstr "Diapositive publiée"
 
 #. module: website_slides
 #: model:ir.model,name:website_slides.model_slide_answer
@@ -5698,6 +5701,8 @@ msgid ""
 "Your Google API key is invalid, please update it in your settings.\n"
 "Settings > Website > Features > API Key"
 msgstr ""
+"Votre clé API Google n'est pas valide, veuillez la mettre à jour dans vos paramètres.\n"
+"Paramètres > Site Web > Fonctionnalités > Clé API"
 
 #. module: website_slides
 #: model:slide.channel.tag.group,name:website_slides.slide_channel_tag_group_level

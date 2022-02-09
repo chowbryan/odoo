@@ -291,8 +291,10 @@ class Lead(models.Model):
 
             # propose a new company based on responsible, limited by team
             if not proposal:
-                if lead.user_id:
-                    proposal = lead.team_id.company_id or lead.user_id.company_id
+                if lead.user_id and lead.team_id.company_id:
+                    proposal = lead.team_id.company_id
+                elif lead.user_id:
+                    proposal = lead.user_id.company_id & self.env.companies
                 elif lead.team_id:
                     proposal = lead.team_id.company_id
                 else:
@@ -1017,6 +1019,7 @@ class Lead(models.Model):
             partner_ids.append(self.partner_id.id)
         current_opportunity_id = self.id if self.type == 'opportunity' else False
         action['context'] = {
+            'search_default_opportunity_id': current_opportunity_id,
             'default_opportunity_id': current_opportunity_id,
             'default_partner_id': self.partner_id.id,
             'default_partner_ids': partner_ids,

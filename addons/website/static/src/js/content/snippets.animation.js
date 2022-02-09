@@ -697,6 +697,18 @@ registry.backgroundVideo = publicWidget.Widget.extend({
 
         $(window).on('resize.' + this.iframeID, throttledUpdate);
 
+        const $modal = this.$target.closest('.modal');
+        if ($modal.length) {
+            $modal.on('show.bs.modal', () => {
+                const videoContainerEl = this.$target[0].querySelector('.o_bg_video_container');
+                videoContainerEl.classList.add('d-none');
+            });
+            $modal.on('shown.bs.modal', () => {
+                this._adjustIframe();
+                const videoContainerEl = this.$target[0].querySelector('.o_bg_video_container');
+                videoContainerEl.classList.remove('d-none');
+            });
+        }
         return Promise.all(proms).then(() => this._appendBgVideo());
     },
     /**
@@ -1249,8 +1261,12 @@ registry.WebsiteAnimate = publicWidget.Widget.extend({
 
             // We need to offset for the change in position from some animation.
             // So we get the top value by not taking CSS transforms into calculations.
-            const $openModal = this.$target.find('.modal:visible');
-            const scrollTop = $openModal.length ? $openModal.scrollTop() : this.$scrollingElement.scrollTop();
+            // Cookies bar might be opened and considered as a modal but it is
+            // not really one (eg 'discrete' layout), and should not be used as
+            // scrollTop value.
+            const scrollTop = document.body.classList.contains("modal-open") ?
+                this.$target.find('.modal:visible').scrollTop() :
+                this.$scrollingElement.scrollTop();
             const elTop = this._getElementOffsetTop($el[0]) - scrollTop;
 
             const visible = this.windowsHeight > (elTop + elOffset) && 0 < (elTop + elHeight - elOffset);

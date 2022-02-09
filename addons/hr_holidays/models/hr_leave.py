@@ -79,7 +79,7 @@ class HolidaysRequest(models.Model):
 
         if 'state' in fields_list and not defaults.get('state'):
             lt = self.env['hr.leave.type'].browse(defaults.get('holiday_status_id'))
-            defaults['state'] = 'confirm' if lt and lt.leave_validation_type != 'no_validation' else 'draft'
+            defaults['state'] = 'confirm'
 
         now = fields.Datetime.now()
         if 'date_from' not in defaults:
@@ -203,8 +203,8 @@ class HolidaysRequest(models.Model):
     # To display in form view
     supported_attachment_ids = fields.Many2many(
         'ir.attachment', string="Attach File", compute='_compute_supported_attachment_ids',
-        inverse='_inverse_supported_attachment_ids')
-    supported_attachment_ids_count = fields.Integer(compute='_compute_supported_attachment_ids')
+        inverse='_inverse_supported_attachment_ids', compute_sudo=True)
+    supported_attachment_ids_count = fields.Integer(compute='_compute_supported_attachment_ids', compute_sudo=True)
     # UX fields
     leave_type_request_unit = fields.Selection(related='holiday_status_id.request_unit', readonly=True)
     leave_type_support_document = fields.Boolean(related="holiday_status_id.support_document")
@@ -338,6 +338,7 @@ class HolidaysRequest(models.Model):
             [
                 ('holiday_status_id', 'in', self.holiday_status_id.ids),
                 ('employee_id', 'in', self.employee_id.ids),
+                ('state', '=', 'validate'),
                 '|',
                 ('date_to', '>=', min(self.mapped('date_to'))),
                 '&',
@@ -355,9 +356,9 @@ class HolidaysRequest(models.Model):
                 date_to = leave.date_to.replace(tzinfo=UTC).astimezone(timezone(leave.tz)).date()
                 date_from = leave.date_from.replace(tzinfo=UTC).astimezone(timezone(leave.tz)).date()
                 for allocation in allocations_dict[(leave.holiday_status_id.id, leave.employee_id.id)]:
-                    date_to_check = allocation['date_to'] > date_to if allocation['date_to'] else False
-                    date_from_check = allocation['date_to'] is False and allocation['date_from'] <= date_from
-                    if (date_to_check or date_from_check):
+                    date_to_check = allocation['date_to'] >= date_to if allocation['date_to'] else True
+                    date_from_check = allocation['date_from'] <= date_from
+                    if (date_to_check and date_from_check):
                         found_allocation = allocation['id']
                         break
                 leave.holiday_allocation_id = self.env['hr.leave.allocation'].browse(found_allocation) if found_allocation else False
@@ -629,7 +630,7 @@ class HolidaysRequest(models.Model):
 
     def _inverse_supported_attachment_ids(self):
         for holiday in self:
-            holiday.attachment_ids = holiday.supported_attachment_ids
+            holiday.sudo().attachment_ids = holiday.supported_attachment_ids
 
     @api.constrains('date_from', 'date_to', 'employee_id')
     def _check_date(self):
@@ -645,7 +646,8 @@ class HolidaysRequest(models.Model):
             ]
             nholidays = self.search_count(domain)
             if nholidays:
-                raise ValidationError(_('You can not set 2 time off that overlaps on the same day for the same employee.'))
+                raise ValidationError(
+                    _('You can not set 2 time off that overlaps on the same day for the same employee.') + '\n- %s' % (holiday.display_name))
 
     @api.constrains('state', 'number_of_days', 'holiday_status_id')
     def _check_holidays(self):
@@ -656,7 +658,7 @@ class HolidaysRequest(models.Model):
             leave_days = mapped_days[holiday.employee_id.id][holiday.holiday_status_id.id]
             if float_compare(leave_days['remaining_leaves'], 0, precision_digits=2) == -1 or float_compare(leave_days['virtual_remaining_leaves'], 0, precision_digits=2) == -1:
                 raise ValidationError(_('The number of remaining time off is not sufficient for this time off type.\n'
-                                        'Please also check the time off waiting for validation.'))
+                                        'Please also check the time off waiting for validation.') + '\n- %s' % holiday.display_name)
 
     @api.constrains('date_from', 'date_to', 'employee_id')
     def _check_date_state(self):
@@ -788,7 +790,7 @@ class HolidaysRequest(models.Model):
                 raise ValidationError(_(
                     'Could not find an allocation of type %(leave_type)s for the requested time period.',
                     leave_type=leave.holiday_status_id.display_name,
-                ))
+                ) + '\n- %s' % (leave.employee_id.name))
 
     @api.constrains('holiday_allocation_id', 'date_to', 'date_from')
     def _check_leave_type_validity(self):
@@ -970,7 +972,7 @@ class HolidaysRequest(models.Model):
     def _validate_leave_request(self):
         """ Validate time off requests (holiday_type='employee')
         by creating a calendar event and a resource time off. """
-        holidays = self.filtered(lambda request: request.holiday_type == 'employee')
+        holidays = self.filtered(lambda request: request.holiday_type == 'employee' and request.employee_id)
         holidays._create_resource_leave()
         meeting_holidays = holidays.filtered(lambda l: l.holiday_status_id.create_calendar_meeting)
         if meeting_holidays:
@@ -1189,6 +1191,7 @@ class HolidaysRequest(models.Model):
                     tracking_disable=True,
                     mail_activity_automation_skip=True,
                     leave_fast_create=True,
+                    no_calendar_sync=True,
                     leave_skip_state_check=True,
                 ).create(values)
 

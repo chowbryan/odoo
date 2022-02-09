@@ -16,7 +16,7 @@ from odoo.addons.base.models.ir_qweb_fields import nl2br
 
 class WebsiteForm(http.Controller):
 
-    @http.route('/website/form/', type='http', auth="public", methods=['POST'], multilang=False)
+    @http.route('/website/form', type='http', auth="public", methods=['POST'], multilang=False)
     def website_form_empty(self, **kwargs):
         # This is a workaround to don't add language prefix to <form action="/website/form/" ...>
         return ""
@@ -141,7 +141,7 @@ class WebsiteForm(http.Controller):
             'meta': '',         # Add metadata if enabled
         }
 
-        authorized_fields = model.sudo()._get_form_writable_fields()
+        authorized_fields = model.with_user(SUPERUSER_ID)._get_form_writable_fields()
         error_fields = []
         custom_fields = []
 
@@ -239,7 +239,7 @@ class WebsiteForm(http.Controller):
         orphan_attachment_ids = []
         model_name = model.sudo().model
         record = model.env[model_name].browse(id_record)
-        authorized_fields = model.sudo()._get_form_writable_fields()
+        authorized_fields = model.with_user(SUPERUSER_ID)._get_form_writable_fields()
         for file in files:
             custom_field = file.field_name not in authorized_fields
             attachment_value = {

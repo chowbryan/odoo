@@ -802,12 +802,15 @@ class StockMove(models.Model):
 
     @api.model
     def _prepare_merge_moves_distinct_fields(self):
-        return [
+        fields = [
             'product_id', 'price_unit', 'procure_method', 'location_id', 'location_dest_id',
             'product_uom', 'restrict_partner_id', 'scrapped', 'origin_returned_move_id',
             'package_level_id', 'propagate_cancel', 'description_picking', 'date_deadline',
             'product_packaging_id',
         ]
+        if self.env['ir.config_parameter'].sudo().get_param('stock.merge_only_same_date'):
+            fields.append('date')
+        return fields
 
     @api.model
     def _prepare_merge_negative_moves_excluded_distinct_fields(self):
@@ -1273,14 +1276,11 @@ class StockMove(models.Model):
 
     def _prepare_move_line_vals(self, quantity=None, reserved_quant=None):
         self.ensure_one()
-        # apply putaway
-        location_dest_id = self.location_dest_id._get_putaway_strategy(self.product_id, quantity=quantity or 0, packaging=self.product_packaging_id).id
         vals = {
             'move_id': self.id,
             'product_id': self.product_id.id,
             'product_uom_id': self.product_uom.id,
             'location_id': self.location_id.id,
-            'location_dest_id': location_dest_id,
             'picking_id': self.picking_id.id,
             'company_id': self.company_id.id,
         }
@@ -1293,14 +1293,19 @@ class StockMove(models.Model):
                 vals = dict(vals, product_uom_qty=uom_quantity)
             else:
                 vals = dict(vals, product_uom_qty=quantity, product_uom_id=self.product_id.uom_id.id)
+        package = None
         if reserved_quant:
+            package = reserved_quant.package_id
             vals = dict(
                 vals,
                 location_id=reserved_quant.location_id.id,
                 lot_id=reserved_quant.lot_id.id or False,
-                package_id=reserved_quant.package_id.id or False,
+                package_id=package.id or False,
                 owner_id =reserved_quant.owner_id.id or False,
             )
+        # apply putaway
+        location_dest_id = self.location_dest_id._get_putaway_strategy(self.product_id, quantity=quantity or 0, package=package, packaging=self.product_packaging_id).id
+        vals['location_dest_id'] = location_dest_id
         return vals
 
     def _update_reserved_quantity(self, need, available_quantity, location_id, lot_id=None, package_id=None, owner_id=None, strict=True):
@@ -1422,7 +1427,8 @@ class StockMove(models.Model):
                 grouped_move_lines_out[k] = sum(self.env['stock.move.line'].concat(*list(g)).mapped('product_qty'))
             available_move_lines = {key: grouped_move_lines_in[key] - grouped_move_lines_out.get(key, 0) for key in grouped_move_lines_in}
             # pop key if the quantity available amount to 0
-            return dict((k, v) for k, v in available_move_lines.items() if v)
+            rounding = move.product_id.uom_id.rounding
+            return dict((k, v) for k, v in available_move_lines.items() if float_compare(v, 0, precision_rounding=rounding) > 0)
 
         StockMove = self.env['stock.move']
         assigned_moves_ids = OrderedSet()
@@ -1737,11 +1743,12 @@ class StockMove(models.Model):
     def _recompute_state(self):
         moves_state_to_write = defaultdict(set)
         for move in self:
+            rounding = move.product_uom.rounding
             if move.state in ('cancel', 'done', 'draft'):
                 continue
-            elif move.reserved_availability == move.product_uom_qty:
+            elif float_compare(move.reserved_availability, move.product_uom_qty, precision_rounding=rounding) == 0:
                 moves_state_to_write['assigned'].add(move.id)
-            elif move.reserved_availability and move.reserved_availability <= move.product_uom_qty:
+            elif move.reserved_availability and float_compare(move.reserved_availability, move.product_uom_qty, precision_rounding=rounding) <= 0:
                 moves_state_to_write['partially_available'].add(move.id)
             elif move.procure_method == 'make_to_order' and not move.move_orig_ids:
                 moves_state_to_write['waiting'].add(move.id)

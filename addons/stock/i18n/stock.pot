@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-05 10:53+0000\n"
-"PO-Revision-Date: 2021-10-05 10:53+0000\n"
+"POT-Creation-Date: 2021-11-16 13:18+0000\n"
+"PO-Revision-Date: 2021-11-16 13:18+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -309,6 +309,20 @@ msgstr ""
 msgid ""
 "<span attrs=\"{'invisible': ['|', ('state', '=', 'done'), "
 "('from_immediate_transfer', '=', True)]}\"> / </span>"
+msgstr ""
+
+#. module: stock
+#: model_terms:ir.ui.view,arch_db:stock.report_reception_body
+msgid ""
+"<span class=\"d-none d-sm-block o_print_label_text\">Print Label</span>\n"
+"                                        <span class=\"d-block d-sm-none fa fa-print\"/>"
+msgstr ""
+
+#. module: stock
+#: model_terms:ir.ui.view,arch_db:stock.report_reception_body
+msgid ""
+"<span class=\"d-none d-sm-block o_print_label_text\">Print Labels</span>\n"
+"                                        <span class=\"d-block d-sm-none fa fa-print\"/>"
 msgstr ""
 
 #. module: stock
@@ -1780,7 +1794,7 @@ msgstr ""
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_res_config_settings__module_delivery_dhl
-msgid "DHL USA Connector"
+msgid "DHL Express Connector"
 msgstr ""
 
 #. module: stock
@@ -1958,10 +1972,12 @@ msgstr ""
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_location__removal_strategy_id
 msgid ""
-"Defines the default method used for suggesting the exact location (shelf) "
-"where to take the products from, which lot etc. for this location. This "
-"method can be enforced at the product category level, and a fallback is made"
-" on the parent locations if none is set here."
+"Defines the default method used for suggesting the exact location (shelf) where to take the products from, which lot etc. for this location. This method can be enforced at the product category level, and a fallback is made on the parent locations if none is set here.\n"
+"\n"
+"FIFO: products/lots that were stocked first will be moved out first.\n"
+"LIFO: products/lots that were stocked last will be moved out first.\n"
+"Closet location: products/lots closest to the target location will be moved out first.\n"
+"FEFO: products/lots with the closest removal date will be moved out first (the availability of this method depends on the \"Expiration Dates\" setting)."
 msgstr ""
 
 #. module: stock
@@ -5037,11 +5053,6 @@ msgid "Picking"
 msgstr ""
 
 #. module: stock
-#: model:ir.actions.report,name:stock.label_picking
-msgid "Picking Label"
-msgstr ""
-
-#. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.view_picking_internal_search
 msgid "Picking Lists"
 msgstr ""
@@ -5141,14 +5152,12 @@ msgstr ""
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_picking_type__print_label
-#: model_terms:ir.ui.view,arch_db:stock.report_reception_body
 msgid "Print Label"
 msgstr ""
 
 #. module: stock
 #. openerp-web
 #: code:addons/stock/static/src/xml/report_stock_reception.xml:0
-#: model_terms:ir.ui.view,arch_db:stock.report_reception_body
 #: model_terms:ir.ui.view,arch_db:stock.view_picking_form
 #, python-format
 msgid "Print Labels"
@@ -5749,12 +5758,10 @@ msgid "Quants cannot be created for consumables or services."
 msgstr ""
 
 #. module: stock
-#: code:addons/stock/models/stock_picking.py:0
 #: model:ir.model.fields.selection,name:stock.selection__stock_picking__state__assigned
 #: model_terms:ir.ui.view,arch_db:stock.stock_picking_type_kanban
 #: model_terms:ir.ui.view,arch_db:stock.view_move_search
 #: model_terms:ir.ui.view,arch_db:stock.view_picking_internal_search
-#, python-format
 msgid "Ready"
 msgstr ""
 
@@ -5836,6 +5843,11 @@ msgstr ""
 #: model:ir.actions.report,name:stock.stock_reception_report_action
 #: model:ir.model.fields,field_description:stock.field_res_config_settings__group_stock_reception_report
 msgid "Reception Report"
+msgstr ""
+
+#. module: stock
+#: model:ir.actions.report,name:stock.label_picking
+msgid "Reception Report Label"
 msgstr ""
 
 #. module: stock
@@ -6536,8 +6548,12 @@ msgstr ""
 #. module: stock
 #: model:ir.model.fields,help:stock.field_product_category__removal_strategy_id
 msgid ""
-"Set a specific removal strategy that will be used regardless of the source "
-"location for this product category"
+"Set a specific removal strategy that will be used regardless of the source location for this product category.\n"
+"\n"
+"FIFO: products/lots that were stocked first will be moved out first.\n"
+"LIFO: products/lots that were stocked last will be moved out first.\n"
+"Closet location: products/lots closest to the target location will be moved out first.\n"
+"FEFO: products/lots with the closest removal date will be moved out first (the availability of this method depends on the \"Expiration Dates\" setting)."
 msgstr ""
 
 #. module: stock
@@ -6614,6 +6630,11 @@ msgstr ""
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_warehouse__code
 msgid "Short name used to identify your warehouse"
+msgstr ""
+
+#. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_picking__show_allocation
+msgid "Show Allocation"
 msgstr ""
 
 #. module: stock
@@ -7111,6 +7132,13 @@ msgid ""
 msgstr ""
 
 #. module: stock
+#: model:ir.model.fields,help:stock.field_stock_picking__show_allocation
+msgid ""
+"Technical Field used to decide whether the button \"Allocation\" should be "
+"displayed."
+msgstr ""
+
+#. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.view_warehouse
 msgid "Technical Information"
 msgstr ""
@@ -7346,10 +7374,8 @@ msgstr ""
 #, python-format
 msgid ""
 "The quantity done for the product \"%s\" doesn't respect the rounding "
-"precision                                   defined on the unit of measure "
-"\"%s\". Please change the quantity done or the"
-"                                   rounding precision of your unit of "
-"measure."
+"precision defined on the unit of measure \"%s\". Please change the quantity "
+"done or the rounding precision of your unit of measure."
 msgstr ""
 
 #. module: stock
@@ -8365,9 +8391,9 @@ msgstr ""
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_warehouse_orderpoint__product_min_qty
 msgid ""
-"When the virtual stock goes below the Min Quantity specified "
-"for this field, Odoo generates a procurement to bring the forecasted "
-"quantity to the Max Quantity."
+"When the virtual stock goes below the Min Quantity specified for this field,"
+" Odoo generates a procurement to bring the forecasted quantity to the Max "
+"Quantity."
 msgstr ""
 
 #. module: stock

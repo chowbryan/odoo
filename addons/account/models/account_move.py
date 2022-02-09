@@ -49,6 +49,14 @@ class AccountMove(models.Model):
     _check_company_auto = True
     _sequence_index = "journal_id"
 
+    def init(self):
+        self.env.cr.execute("""
+            CREATE INDEX IF NOT EXISTS account_move_to_check_idx
+            ON account_move(journal_id) WHERE to_check = true;
+            CREATE INDEX IF NOT EXISTS account_move_payment_idx
+            ON account_move(journal_id, state, payment_state, move_type, date);
+        """)
+
     @property
     def _sequence_monthly_regex(self):
         return self.journal_id.sequence_override_regex or super()._sequence_monthly_regex
@@ -607,6 +615,7 @@ class AccountMove(models.Model):
             'analytic_account_id': tax_line.tax_line_id.analytic and tax_line.analytic_account_id.id,
             'tax_ids': [(6, 0, tax_line.tax_ids.ids)],
             'tax_tag_ids': [(6, 0, tax_line.tax_tag_ids.ids)],
+            'partner_id': tax_line.partner_id.id,
         }
 
     @api.model
@@ -628,6 +637,7 @@ class AccountMove(models.Model):
             'analytic_account_id': tax_vals['analytic'] and base_line.analytic_account_id.id,
             'tax_ids': [(6, 0, tax_vals['tax_ids'])],
             'tax_tag_ids': [(6, 0, tax_vals['tag_ids'])],
+            'partner_id': base_line.partner_id.id,
         }
 
     def _get_tax_force_sign(self):
@@ -758,12 +768,6 @@ class AccountMove(models.Model):
 
             currency = self.env['res.currency'].browse(taxes_map_entry['grouping_dict']['currency_id'])
 
-            # Don't create tax lines with zero balance.
-            if currency.is_zero(taxes_map_entry['amount']):
-                if taxes_map_entry['tax_line'] and not recompute_tax_base_amount:
-                    self.line_ids -= taxes_map_entry['tax_line']
-                continue
-
             # tax_base_amount field is expressed using the company currency.
             tax_base_amount = currency._convert(taxes_map_entry['tax_base_amount'], self.company_currency_id, self.company_id, self.date or fields.Date.context_today(self))
 
@@ -800,7 +804,6 @@ class AccountMove(models.Model):
                     **to_write_on_line,
                     'name': tax.name,
                     'move_id': self.id,
-                    'partner_id': line.partner_id.id,
                     'company_id': line.company_id.id,
                     'company_currency_id': line.company_currency_id.id,
                     'tax_base_amount': tax_base_amount,
@@ -889,6 +892,7 @@ class AccountMove(models.Model):
                     'name': _('%s (rounding)', biggest_tax_line.name),
                     'account_id': biggest_tax_line.account_id.id,
                     'tax_repartition_line_id': biggest_tax_line.tax_repartition_line_id.id,
+                    'tax_tag_ids': [(6, 0, biggest_tax_line.tax_tag_ids.ids)],
                     'exclude_from_invoice_tab': True,
                 })
 
@@ -1537,7 +1541,7 @@ class AccountMove(models.Model):
 
             domain = [
                 ('account_id', 'in', pay_term_lines.account_id.ids),
-                ('move_id.state', '=', 'posted'),
+                ('parent_state', '=', 'posted'),
                 ('partner_id', '=', move.commercial_partner_id.id),
                 ('reconciled', '=', False),
                 '|', ('amount_residual', '!=', 0.0), ('amount_residual_currency', '!=', 0.0),
@@ -1961,9 +1965,9 @@ class AccountMove(models.Model):
             raise ValidationError(_('Posted journal entry must have an unique sequence number per company.\n'
                                     'Problematic numbers: %s\n') % ', '.join(r[1] for r in res))
 
-    @api.constrains('ref', 'move_type', 'partner_id', 'journal_id', 'invoice_date')
+    @api.constrains('ref', 'move_type', 'partner_id', 'journal_id', 'invoice_date', 'state')
     def _check_duplicate_supplier_reference(self):
-        moves = self.filtered(lambda move: move.is_purchase_document() and move.ref)
+        moves = self.filtered(lambda move: move.state == 'posted' and move.is_purchase_document() and move.ref)
         if not moves:
             return
 
@@ -2080,7 +2084,7 @@ class AccountMove(models.Model):
             # Shortcut to load the demo data.
             # Doing line.account_id triggers a default_get(['account_id']) that could returns a result.
             # A section / note must not have an account_id set.
-            if not line._cache.get('account_id') and not line.display_type and not line._origin:
+            if not line._cache.get('account_id') and not line._origin:
                 line.account_id = line._get_computed_account() or self.journal_id.default_account_id
             if line.product_id and not line._cache.get('name'):
                 line.name = line._get_computed_name()
@@ -2283,7 +2287,9 @@ class AccountMove(models.Model):
         explicitly empty the 'name' field of the move; but we discourage that practice.
         """
         if not self._context.get('force_delete') and not self.filtered(lambda move: move.name != '/')._is_end_of_seq_chain():
-            raise UserError(_("You cannot delete this entry, as it has already consumed a sequence number and is not the last one in the chain. Probably you should revert it instead."))
+            raise UserError(_(
+                "You cannot delete this entry, as it has already consumed a sequence number and is not the last one in the chain. You should probably revert it instead."
+            ))
 
     def unlink(self):
         self.line_ids.unlink()
@@ -2388,11 +2394,11 @@ class AccountMove(models.Model):
                 values['total_amount_currency'] += sign * line.amount_currency
                 values['total_residual_currency'] += sign * line.amount_residual_currency
 
-            elif line.tax_line_id.tax_exigibility == 'on_payment':
+            elif line.tax_line_id.tax_exigibility == 'on_payment' and not line.reconciled:
                 values['to_process_lines'].append(('tax', line))
                 currencies.add(line.currency_id)
 
-            elif 'on_payment' in line.tax_ids.mapped('tax_exigibility'):
+            elif 'on_payment' in line.tax_ids.mapped('tax_exigibility') and not line.reconciled:
                 values['to_process_lines'].append(('base', line))
                 currencies.add(line.currency_id)
 
@@ -2606,10 +2612,6 @@ class AccountMove(models.Model):
             # invoice_repartition_line => refund_repartition_line
             mapping = {}
 
-            # Do nothing if the move is not a credit note.
-            if move_vals['move_type'] not in ('out_refund', 'in_refund'):
-                return mapping
-
             for line_command in move_vals.get('line_ids', []):
                 line_vals = line_command[2]  # (0, 0, {...})
 
@@ -2629,7 +2631,18 @@ class AccountMove(models.Model):
 
         move_vals = self.with_context(include_business_fields=True).copy_data(default=default_values)[0]
 
-        tax_repartition_lines_mapping = compute_tax_repartition_lines_mapping(move_vals)
+        is_refund = False
+        if move_vals['move_type'] in ('out_refund', 'in_refund'):
+            is_refund = True
+        elif move_vals['move_type'] == 'entry':
+            base_lines = self.line_ids.filtered(lambda line: line.tax_ids)
+            tax_type = set(base_lines.tax_ids.mapped('type_tax_use'))
+            if tax_type == {'sale'} and sum(base_lines.mapped('debit')) == 0:
+                is_refund = True
+            elif tax_type == {'purchase'} and sum(base_lines.mapped('credit')) == 0:
+                is_refund = True
+
+        tax_repartition_lines_mapping = compute_tax_repartition_lines_mapping(move_vals) if is_refund else {}
 
         for line_command in move_vals.get('line_ids', []):
             line_vals = line_command[2]  # (0, 0, {...})
@@ -2648,7 +2661,7 @@ class AccountMove(models.Model):
                 'credit': balance < 0.0 and -balance or 0.0,
             })
 
-            if move_vals['move_type'] not in ('out_refund', 'in_refund'):
+            if not is_refund:
                 continue
 
             # ==== Map tax repartition lines ====
@@ -2660,15 +2673,18 @@ class AccountMove(models.Model):
                 refund_repartition_line = tax_repartition_lines_mapping[invoice_repartition_line]
 
                 # Find the right account.
-                account_id = self.env['account.move.line']._get_default_tax_account(refund_repartition_line).id
-                if not account_id:
-                    if not invoice_repartition_line.account_id:
-                        # Keep the current account as the current one comes from the base line.
-                        account_id = line_vals['account_id']
-                    else:
-                        tax = invoice_repartition_line.invoice_tax_id
-                        base_line = self.line_ids.filtered(lambda line: tax in line.tax_ids.flatten_taxes_hierarchy())[0]
-                        account_id = base_line.account_id.id
+                if cancel:
+                    account_id = line_vals['account_id']
+                else:
+                    account_id = self.env['account.move.line']._get_default_tax_account(refund_repartition_line).id
+                    if not account_id:
+                        if not invoice_repartition_line.account_id:
+                            # Keep the current account as the current one comes from the base line.
+                            account_id = line_vals['account_id']
+                        else:
+                            tax = invoice_repartition_line.invoice_tax_id
+                            base_line = self.line_ids.filtered(lambda line: tax in line.tax_ids.flatten_taxes_hierarchy())[0]
+                            account_id = base_line.account_id.id
 
                 tags = refund_repartition_line.tag_ids
                 if line_vals.get('tax_ids'):
@@ -2902,6 +2918,8 @@ class AccountMove(models.Model):
         if not self.env.su and not self.env.user.has_group('account.group_account_invoice'):
             raise AccessError(_("You don't have the access rights to post an invoice."))
         for move in to_post:
+            if move.partner_bank_id and not move.partner_bank_id.active:
+                raise UserError(_("The recipient bank account link to this invoice is archived.\nSo you cannot confirm the invoice."))
             if move.state == 'posted':
                 raise UserError(_('The entry %s (id %s) is already posted.') % (move.name, move.id))
             if not move.line_ids.filtered(lambda line: not line.display_type):
@@ -3128,7 +3146,6 @@ class AccountMove(models.Model):
             custom_layout="mail.mail_notification_paynow",
             model_description=self.with_context(lang=lang).type_name,
             force_email=True,
-            wizard_opened=True
         )
         return {
             'name': _('Send Invoice'),
@@ -3153,7 +3170,7 @@ class AccountMove(models.Model):
                                  ('secure_sequence_number', '=', int(secure_seq_number) - 1)])
         if prev_move and len(prev_move) != 1:
             raise UserError(
-               _('An error occured when computing the inalterability. Impossible to get the unique previous posted journal entry.'))
+               _('An error occurred when computing the inalterability. Impossible to get the unique previous posted journal entry.'))
 
         #build and return the hash
         return self._compute_hash(prev_move.inalterable_hash if prev_move else u'')
@@ -3457,7 +3474,7 @@ class AccountMoveLine(models.Model):
         help="The move of this entry line.")
     move_name = fields.Char(string='Number', related='move_id.name', store=True, index=True)
     date = fields.Date(related='move_id.date', store=True, readonly=True, index=True, copy=False, group_operator='min')
-    ref = fields.Char(related='move_id.ref', store=True, copy=False, index=True, readonly=False)
+    ref = fields.Char(related='move_id.ref', store=True, copy=False, index=True, readonly=True)
     parent_state = fields.Selection(related='move_id.state', store=True, readonly=True)
     journal_id = fields.Many2one(related='move_id.journal_id', store=True, index=True, copy=False)
     company_id = fields.Many2one(related='move_id.company_id', store=True, readonly=True)
@@ -3531,7 +3548,7 @@ class AccountMoveLine(models.Model):
         comodel_name='account.tax',
         string="Originator Group of Taxes",
         index=True,
-        help="The group of taxes generator of this tax line",
+        help="The group of taxes that generated this tax line",
     )
     tax_line_id = fields.Many2one('account.tax', string='Originator Tax', ondelete='restrict', store=True,
         compute='_compute_tax_line_id', help="Indicates that this journal item is a tax line")
@@ -5452,7 +5469,7 @@ class AccountMoveLine(models.Model):
 
         state = context.get('state')
         if state and state.lower() != 'all':
-            domain += [('move_id.state', '=', state)]
+            domain += [('parent_state', '=', state)]
 
         if context.get('company_id'):
             domain += [('company_id', '=', context['company_id'])]
@@ -5487,7 +5504,7 @@ class AccountMoveLine(models.Model):
         tables = ''
         if domain:
             domain.append(('display_type', 'not in', ('line_section', 'line_note')))
-            domain.append(('move_id.state', '!=', 'cancel'))
+            domain.append(('parent_state', '!=', 'cancel'))
 
             query = self._where_calc(domain)
 

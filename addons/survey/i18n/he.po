@@ -14,16 +14,16 @@
 # דודי מלכה <Dudimalka6@gmail.com>, 2021
 # ZVI BLONDER <ZVIBLONDER@gmail.com>, 2021
 # Lilach Gilliam <lilach@apprcase.com>, 2021
-# Lilach Gilliam <lilach.gilliam@gmail.com>, 2021
 # david danilov, 2021
+# Lilach Gilliam <lilach.gilliam@gmail.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-05 10:53+0000\n"
+"POT-Creation-Date: 2021-11-16 13:18+0000\n"
 "PO-Revision-Date: 2021-09-14 12:26+0000\n"
-"Last-Translator: david danilov, 2021\n"
+"Last-Translator: Lilach Gilliam <lilach.gilliam@gmail.com>, 2021\n"
 "Language-Team: Hebrew (https://www.transifex.com/odoo/teams/41243/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -672,8 +672,8 @@ msgstr "ציון חיובי מציין בחירה נכונה, ציון שליל�
 
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.survey_fill_form
-msgid "A problem has occured"
-msgstr "אירעה שגיאה"
+msgid "A problem has occurred"
+msgstr ""
 
 #. module: survey
 #: code:addons/survey/models/survey_user_input.py:0
@@ -3577,7 +3577,7 @@ msgstr "ערכים מוצעים"
 #. module: survey
 #: model:ir.model.fields,field_description:survey.field_survey_user_input_line__suggested_answer_id
 msgid "Suggested answer"
-msgstr ""
+msgstr "ערכים מוצעים"
 
 #. module: survey
 #: model:ir.model.fields,field_description:survey.field_survey_question_answer__value
@@ -3729,7 +3729,7 @@ msgstr "טקסט"
 #. module: survey
 #: model:ir.model.fields,field_description:survey.field_survey_user_input_line__value_char_box
 msgid "Text answer"
-msgstr ""
+msgstr "טקסט התשובה"
 
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.survey_fill_form_done

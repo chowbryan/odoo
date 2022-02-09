@@ -179,6 +179,7 @@
                         <field name="require_partner_bank_account" invisible="1"/>
                         <field name="hide_payment_method_line" invisible="1"/>
                         <field name="available_payment_method_line_ids" invisible="1"/>
+                        <field name="available_partner_bank_ids" invisible="1"/>
                         <field name="suitable_journal_ids" invisible="1"/>
                         <field name="country_code" invisible="1"/>
                         <field name="partner_type" invisible="1"/>
@@ -268,17 +269,24 @@
 
                                 <field name="partner_bank_id" context="{'default_partner_id': partner_id}" string="Customer Bank Account"
                                         attrs="{
-                                            'invisible': ['|', '|', ('show_partner_bank_account', '=', False), ('partner_type','!=','customer'), ('is_internal_transfer', '=', True)],
+                                            'invisible': ['|', '|', '|', ('show_partner_bank_account', '=', False), ('partner_type','!=','customer'), ('is_internal_transfer', '=', True), ('payment_type', '=', 'inbound')],
                                             'required': [('require_partner_bank_account', '=', True), ('is_internal_transfer', '=', False)],
-                                            'readonly': [('state', '!=', 'draft')]
+                                            'readonly': [('state', '!=', 'draft')],
                                         }"/>
 
                                 <field name="partner_bank_id" context="{'default_partner_id': partner_id}" string="Vendor Bank Account"
                                         attrs="{
-                                            'invisible': ['|', '|', ('show_partner_bank_account', '=', False), ('partner_type','!=','supplier'), ('is_internal_transfer', '=', True)],
+                                            'invisible': ['|', '|', '|', ('show_partner_bank_account', '=', False), ('partner_type','!=','supplier'), ('is_internal_transfer', '=', True), ('payment_type', '=', 'inbound')],
                                             'required': [('require_partner_bank_account', '=', True), ('is_internal_transfer', '=', False)],
-                                            'readonly': [('state', '!=', 'draft')]
+                                            'readonly': [('state', '!=', 'draft')],
                                         }"/>
+
+                                <field name="partner_bank_id" context="{'default_partner_id': partner_id}" string="Company Bank Account" readonly="1"
+                                        attrs="{
+                                            'invisible': ['|', '|', ('show_partner_bank_account', '=', False), ('is_internal_transfer', '=', True), ('payment_type', '=', 'outbound')],
+                                            'required': [('require_partner_bank_account', '=', True), ('is_internal_transfer', '=', False)],
+                                        }"/>
+
                                 <field name="destination_journal_id" context="{'default_partner_id': partner_id}"
                                        attrs="{'invisible': [('is_internal_transfer', '=', False)],
                                        'readonly': [('state', '!=', 'draft')], 'required': [('is_internal_transfer', '=', True),('state', '=', 'draft')]}"/>

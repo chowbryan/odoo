@@ -8,7 +8,6 @@
 # Frédéric LIETART <stuff@tifred.fr>, 2021
 # Vincent Hammadache <vhammadache@gmail.com>, 2021
 # Jonathan Castillo <jcs@odoo.com>, 2021
-# Clément Watthez <cwa@odoo.com>, 2021
 # Camille Dantinne <cmd@odoo.com>, 2021
 # Eric Vernichon <eric@vernichon.fr>, 2021
 # Saad Thaifa <saad.thaifa@gmail.com>, 2021
@@ -18,21 +17,22 @@
 # Stephane DAGUET <stephane@darbtech.net>, 2021
 # Fred Gilson <fgi@odoo.com>, 2021
 # Sylvain GROS-DESORMEAUX <sylvain.grodes@gmail.com>, 2021
-# Alexandra Jubert <aju@odoo.com>, 2021
-# Olivier ANDRE <frsw194@gmail.com>, 2021
 # Priscilla (prs) Odoo <prs@odoo.com>, 2021
 # Martin Trigaux, 2021
 # Fabien Pinckaers <fp@openerp.com>, 2021
 # Nathan Grognet <ngr@odoo.com>, 2021
 # Sébastien BÜHL <buhlsebastien@gmail.com>, 2021
 # gdp Odoo <gdp@odoo.com>, 2021
+# Alexandra Jubert <aju@odoo.com>, 2021
+# Grégory Schreiner, 2021
+# Clément Watthez <cwa@odoo.com>, 2021
 # Cécile Collart <cco@odoo.com>, 2021
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-05 10:53+0000\n"
+"POT-Creation-Date: 2021-11-16 13:18+0000\n"
 "PO-Revision-Date: 2021-09-14 12:27+0000\n"
 "Last-Translator: Cécile Collart <cco@odoo.com>, 2021\n"
 "Language-Team: French (https://www.transifex.com/odoo/teams/41243/fr/)\n"
@@ -974,6 +974,8 @@ msgid ""
 "<i class=\"s_mega_menu_little_icons_icon fa fa-map-o fa-fw mr-2\"/>\n"
 "                            <b>Guides</b>"
 msgstr ""
+"<i class=\"s_mega_menu_little_icons_icon fa fa-map-o fa-fw mr-2\"/>\n"
+"                            <b>Guides</b>"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_mega_menu_little_icons
@@ -1456,7 +1458,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippets
 msgid "<span>Theme</span>"
-msgstr "<span>Thème</span> préféré"
+msgstr "<span>Thème</span>"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.res_config_settings_view_form
@@ -1668,7 +1670,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website.s_image_gallery_options
 #, python-format
 msgid "Add"
-msgstr "Ajoutez des "
+msgstr "Ajouter"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.user_navbar
@@ -1679,12 +1681,12 @@ msgstr "Ajouter des Fonctionnalités"
 #: model_terms:ir.ui.view,arch_db:website.s_table_of_content_options
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Add Item"
-msgstr ""
+msgstr "Ajouter un objet"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_media_list_options
 msgid "Add Media"
-msgstr ""
+msgstr "Ajouter un média"
 
 #. module: website
 #. openerp-web
@@ -1713,7 +1715,7 @@ msgstr "Ajouter une rangée"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_chart_options
 msgid "Add Serie"
-msgstr ""
+msgstr "Ajouter une série"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
@@ -2004,8 +2006,8 @@ msgstr "Une erreur s'est produite, le formulaire n'a pas été envoyé."
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.qweb_500
-msgid "An error occured while rendering the template"
-msgstr "Une erreur est survenue lors de la création du modèle"
+msgid "An error occurred while rendering the template"
+msgstr ""
 
 #. module: website
 #: model:ir.actions.client,name:website.backend_dashboard
@@ -2049,7 +2051,7 @@ msgstr "Et un super sous-titre"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Animate"
-msgstr ""
+msgstr "Animer"
 
 #. module: website
 #. openerp-web
@@ -2358,12 +2360,12 @@ msgstr "Mis sur liste noire dans le formulaires web"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_mega_menu_menus_logos
 msgid "Blazers"
-msgstr ""
+msgstr "Blazers"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Block"
-msgstr "Bloquer"
+msgstr "Bloc"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_mega_menu_big_icons_subtitles
@@ -2528,7 +2530,7 @@ msgstr "Position du bouton"
 #: model_terms:ir.ui.view,arch_db:website.s_tabs_options
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Buttons"
-msgstr "Bouttons"
+msgstr "Boutons"
 
 #. module: website
 #. openerp-web
@@ -3056,7 +3058,7 @@ msgstr "Configuration"
 #. module: website
 #: model:ir.model.fields,field_description:website.field_website__configurator_done
 msgid "Configurator Done"
-msgstr ""
+msgstr "Configuration terminée"
 
 #. module: website
 #: model:ir.model.fields,field_description:website.field_res_config_settings__has_social_network
@@ -3227,6 +3229,15 @@ msgid ""
 "                            We also use cookies to help us compile aggregate data about site traffic and site interaction so that we can offer\n"
 "                            better site experiences and tools in the future."
 msgstr ""
+"Les cookies sont de petits morceaux de texte envoyés par nos serveurs à votre ordinateur ou appareil lorsque vous accédez à nos services.\n"
+"                            Ils sont stockés dans votre navigateur et ensuite renvoyés à nos serveurs afin que nous puissions fournir un contenu contextuel.\n"
+"                            Sans cookies, l'utilisation du Web serait une expérience beaucoup plus frustrante.\n"
+"                            Nous les utilisons pour soutenir vos activités sur notre site Web. Par exemple, votre session (vous n'avez donc pas à vous reconnecter) ou votre panier.\n"
+"                            <br/>\n"
+"                            Les cookies sont également utilisés pour nous aider à comprendre vos préférences en fonction de l'activité précédente ou actuelle sur notre site Web (les pages que vous avez\n"
+"                            visités), votre langue et votre pays, ce qui nous permet de vous fournir des services améliorés.\n"
+"                            Nous utilisons également des cookies pour nous aider à compiler des données agrégées sur le trafic du site et l'interaction du site afin que nous puissions offrir\n"
+"                            de meilleures expériences de site et de meilleurs outils à l'avenir."
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
@@ -3996,12 +4007,12 @@ msgstr "Ne vous inquiétez pas, vous pourrez changer plus tard."
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.external_snippets
 msgid "Donation"
-msgstr "Donation"
+msgstr "Don"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.external_snippets
 msgid "Donation Button"
-msgstr "Bouton de donation"
+msgstr "Bouton de don"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_image_gallery_options
@@ -4703,7 +4714,7 @@ msgstr "Suivez le trafic de votre site web sur Odoo."
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Font"
-msgstr "Fonte"
+msgstr "Police de caractères "
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
@@ -4713,7 +4724,7 @@ msgstr "Taille des caractères"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Font family"
-msgstr "Famille de fontes"
+msgstr "Police de caractères"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
@@ -4893,7 +4904,7 @@ msgstr "Aller à la page"
 #: code:addons/website/static/src/xml/website.backend.xml:0
 #, python-format
 msgid "Go to"
-msgstr "Aller à"
+msgstr "Visiter le "
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.view_view_form_extend
@@ -5671,6 +5682,8 @@ msgid ""
 "Insert text styles like headers, bold, italic, lists, and fonts with\n"
 "                            a simple WYSIWYG editor. Flexible and easy to use."
 msgstr ""
+"Insérez des styles de texte tels que des en-têtes, des caractères gras, italiques, des listes et des polices avec\n"
+" un simple éditeur WYSIWYG. Flexible et facile à utiliser."
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options_shadow_widgets
@@ -7424,7 +7437,7 @@ msgstr "Page indexée"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Page Layout"
-msgstr "Layout de la page"
+msgstr "Agencement de la page"
 
 #. module: website
 #. openerp-web
@@ -8752,7 +8765,7 @@ msgstr "Diapositive"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_tabs_options
 msgid "Slide Down"
-msgstr ""
+msgstr "Glisser vers la bas"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
@@ -8762,17 +8775,17 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_tabs_options
 msgid "Slide Left"
-msgstr ""
+msgstr "Glisser vers la gauche"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_tabs_options
 msgid "Slide Right"
-msgstr ""
+msgstr "Glisser vers la droite"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_tabs_options
 msgid "Slide Up"
-msgstr ""
+msgstr "Glisser vers le haut"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
@@ -9088,7 +9101,7 @@ msgstr "Activité suspecte détectée par Google reCaptcha."
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Switch Theme"
-msgstr "Changer de theme"
+msgstr "Changer de thème"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_mega_menu_menus_logos
@@ -9826,7 +9839,7 @@ msgstr "Menu principal du site Web %s"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options_background_options
 msgid "Top to Bottom"
-msgstr ""
+msgstr "De haut en bas"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_mega_menu_menus_logos
@@ -9900,7 +9913,7 @@ msgstr "Informations de traduction"
 #. module: website
 #: model:ir.model.fields,help:website.field_website__configurator_done
 msgid "True if configurator has been completed or ignored"
-msgstr ""
+msgstr "Vrai si le configurateur a été terminé ou ignoré"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_product_catalog
@@ -10007,12 +10020,12 @@ msgstr "URL vers"
 #: code:addons/website/static/src/xml/website.seo.xml:0
 #, python-format
 msgid "Unalterable unique identifier"
-msgstr ""
+msgstr "Identifiant unique inaltérable"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Underline On Hover"
-msgstr ""
+msgstr "Souligner au survol"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.cookie_policy
@@ -10162,6 +10175,9 @@ msgid ""
 "Use this snippet to presents your content in a slideshow-like format. Don't "
 "write about products or services here, write about solutions."
 msgstr ""
+"Utilisez ce snippet pour présenter votre contenu dans un format semblable à "
+"un diaporama. N'écrivez pas à propos de produits ou services ici, écrivez "
+"plutôt à propos des solutions."
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.theme_view_kanban
@@ -10509,6 +10525,8 @@ msgid ""
 "We are a team of passionate people whose goal is to improve everyone's life through disruptive products. We build great products to solve your business problems.\n"
 "                            <br/><br/>Our products are designed for small to medium size companies willing to optimize their performance."
 msgstr ""
+"Nous sommes une équipe de passionnés dont le but est d'améliorer la vie de chacun grâce à des produits disruptifs. Nous fabriquons d'excellents produits pour résoudre vos problèmes commerciaux.\n"
+"<br/><br/>Nos produits sont conçus pour les petites et moyennes entreprises désireuses d'optimiser leurs performances."
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.template_footer_descriptive
@@ -10518,6 +10536,11 @@ msgid ""
 "problems. Our products are designed for small to medium size companies "
 "willing to optimize their performance."
 msgstr ""
+"Nous sommes une équipe de passionnés dont le but est d'améliorer la vie de "
+"chacun grâce à des produits disruptifs. Nous fabriquons d'excellents "
+"produits pour résoudre vos problèmes commerciaux. Nos produits sont conçus "
+"pour les petites et moyennes entreprises désireuses d'optimiser leurs "
+"performances."
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.template_footer_headline
@@ -11244,16 +11267,6 @@ msgid "Zoom Out"
 msgstr "Réduire"
 
 #. module: website
-#: model_terms:ir.ui.view,arch_db:website.snippet_options
-msgid "[\"code\"]"
-msgstr "[\"code\"]"
-
-#. module: website
-#: model_terms:ir.ui.view,arch_db:website.snippet_options
-msgid "[[\"id\", \"in\","
-msgstr "[[\"id\", \"in\","
-
-#. module: website
 #: model_terms:ir.ui.view,arch_db:website.cookie_policy
 msgid ""
 "__gads (Google)<br/>\n"
@@ -11398,19 +11411,14 @@ msgid "cite"
 msgstr ""
 
 #. module: website
-#: model_terms:ir.ui.view,arch_db:website.snippet_options
-msgid "code"
-msgstr "code"
-
-#. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippets
 msgid "columns, description"
-msgstr ""
+msgstr "colonnes, description"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippets
 msgid "common answers, common questions"
-msgstr ""
+msgstr "réponses communes, questions communes"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippets
@@ -11423,26 +11431,6 @@ msgid "customers, clients"
 msgstr "Clients"
 
 #. module: website
-#: model_terms:ir.ui.view,arch_db:website.snippet_options
-msgid "data-country"
-msgstr ""
-
-#. module: website
-#: model_terms:ir.ui.view,arch_db:website.snippet_options
-msgid "data-utm-campaign"
-msgstr ""
-
-#. module: website
-#: model_terms:ir.ui.view,arch_db:website.snippet_options
-msgid "data-utm-medium"
-msgstr ""
-
-#. module: website
-#: model_terms:ir.ui.view,arch_db:website.snippet_options
-msgid "data-utm-source"
-msgstr ""
-
-#. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_popup_options
 msgid "days"
 msgstr "jours"
@@ -11453,11 +11441,6 @@ msgstr "jours"
 #, python-format
 msgid "develop the brand"
 msgstr "Développer la marque"
-
-#. module: website
-#: model_terms:ir.ui.view,arch_db:website.snippet_options
-msgid "display_name"
-msgstr "display_name"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_countdown_options
@@ -11475,7 +11458,7 @@ msgstr "ex. À propos"
 #: model_terms:ir.ui.view,arch_db:website.s_google_map_options
 #: model_terms:ir.ui.view,arch_db:website.s_map_options
 msgid "e.g. De Brouckere, Brussels, Belgium"
-msgstr "par ex. De Brouckere, Brussels, Belgium"
+msgstr "par ex. De Brouckere, Bruxelles, Belgique"
 
 #. module: website
 #: model:ir.ui.menu,name:website.menu_website_dashboard
@@ -11563,7 +11546,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website.template_footer_contact
 #: model_terms:ir.ui.view,arch_db:website.template_footer_descriptive
 msgid "hello@mycompany.com"
-msgstr ""
+msgstr "hello@mycompany.com"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippets
@@ -11646,11 +11629,6 @@ msgid "ir.ui.view"
 msgstr "ir.ui.view"
 
 #. module: website
-#: model_terms:ir.ui.view,arch_db:website.snippet_options
-msgid "lang"
-msgstr ""
-
-#. module: website
 #: model_terms:ir.ui.view,arch_db:website.bs_debug_view
 #: model_terms:website.page,arch_db:website.bs_debug_page
 msgid "link"
@@ -11691,7 +11669,7 @@ msgstr "ou modifier la source"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippets
 msgid "organization, structure"
-msgstr ""
+msgstr "organisation, structure"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.res_config_settings_view_form
@@ -11721,7 +11699,7 @@ msgstr ""
 #: code:addons/website/static/src/xml/theme_preview.xml:0
 #, python-format
 msgid "pointer to build the perfect page in 7 steps."
-msgstr ""
+msgstr "pointeur pour créer la page parfaite en 7 étapes."
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippets
@@ -11731,27 +11709,17 @@ msgstr "tarification"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippets
 msgid "promotion, characteristic, quality"
-msgstr ""
-
-#. module: website
-#: model_terms:ir.ui.view,arch_db:website.snippet_options
-msgid "res.country"
-msgstr ""
-
-#. module: website
-#: model_terms:ir.ui.view,arch_db:website.snippet_options
-msgid "res.lang"
-msgstr ""
+msgstr "promotion, caractéristique, qualité"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.searchbar_input_snippet_options
 msgid "results"
-msgstr ""
+msgstr "résultats"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_website_form_options
 msgid "rows"
-msgstr ""
+msgstr "lignes"
 
 #. module: website
 #. openerp-web
@@ -11770,7 +11738,7 @@ msgstr "vendre plus"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippets
 msgid "separator, divider"
-msgstr ""
+msgstr "séparateur, diviseur"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.cookie_policy
@@ -11780,12 +11748,12 @@ msgstr "session_id (Odoo)<br/>"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippets
 msgid "statistics, stats, KPI"
-msgstr ""
+msgstr "statistiques, statistiques, KPI"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippets
 msgid "testimonials"
-msgstr ""
+msgstr "témoignages"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.color_combinations_debug_view
@@ -11818,73 +11786,8 @@ msgid "true"
 msgstr "vrai"
 
 #. module: website
-#: model_terms:ir.ui.view,arch_db:website.snippet_options
-msgid "utm.campaign"
-msgstr ""
-
-#. module: website
-#: model_terms:ir.ui.view,arch_db:website.snippet_options
-msgid "utm.medium"
-msgstr ""
-
-#. module: website
-#: model_terms:ir.ui.view,arch_db:website.snippet_options
-msgid "utm.source"
-msgstr ""
-
-#. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippets
 msgid "valuation, rank"
-msgstr ""
-
-#. module: website
-#: model_terms:ir.ui.view,arch_db:website.snippet_options
-msgid "visibilityValueCountry"
-msgstr ""
-
-#. module: website
-#: model_terms:ir.ui.view,arch_db:website.snippet_options
-msgid "visibilityValueCountryRule"
-msgstr ""
-
-#. module: website
-#: model_terms:ir.ui.view,arch_db:website.snippet_options
-msgid "visibilityValueLang"
-msgstr ""
-
-#. module: website
-#: model_terms:ir.ui.view,arch_db:website.snippet_options
-msgid "visibilityValueLangRule"
-msgstr ""
-
-#. module: website
-#: model_terms:ir.ui.view,arch_db:website.snippet_options
-msgid "visibilityValueUtmCampaign"
-msgstr ""
-
-#. module: website
-#: model_terms:ir.ui.view,arch_db:website.snippet_options
-msgid "visibilityValueUtmCampaignRule"
-msgstr ""
-
-#. module: website
-#: model_terms:ir.ui.view,arch_db:website.snippet_options
-msgid "visibilityValueUtmMedium"
-msgstr ""
-
-#. module: website
-#: model_terms:ir.ui.view,arch_db:website.snippet_options
-msgid "visibilityValueUtmMediumRule"
-msgstr ""
-
-#. module: website
-#: model_terms:ir.ui.view,arch_db:website.snippet_options
-msgid "visibilityValueUtmSource"
-msgstr ""
-
-#. module: website
-#: model_terms:ir.ui.view,arch_db:website.snippet_options
-msgid "visibilityValueUtmSourceRule"
 msgstr ""
 
 #. module: website
@@ -11917,22 +11820,22 @@ msgstr "vous n'avez pas besoin de demander le consentement"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_rating_options
 msgid "⌙ Active"
-msgstr ""
+msgstr "⌙ Actif"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "⌙ Background"
-msgstr ""
+msgstr "⌙ Arrière-Plan"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options_shadow_widgets
 msgid "⌙ Blur"
-msgstr ""
+msgstr "⌙ Flou"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "⌙ Buttons"
-msgstr ""
+msgstr "⌙ Boutons"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options_shadow_widgets
@@ -11947,7 +11850,7 @@ msgstr "⌙ Couleurs"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "⌙ Country"
-msgstr ""
+msgstr "⌙ Pays"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_popup_options
@@ -11957,17 +11860,17 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_dynamic_snippet_options_template
 msgid "⌙ Desktop"
-msgstr ""
+msgstr "⌙ Desktop"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_website_form_options
 msgid "⌙ Display"
-msgstr ""
+msgstr "⌙ Affichage"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "⌙ Headings"
-msgstr ""
+msgstr "⌙ En-têtes"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_website_form_options
@@ -11977,12 +11880,12 @@ msgstr "⌙ Hauteur"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "⌙ Hue"
-msgstr ""
+msgstr "Teinte"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_rating_options
 msgid "⌙ Inactive"
-msgstr ""
+msgstr "⌙ Inactif"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options_background_options
@@ -11997,7 +11900,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "⌙ Languages"
-msgstr ""
+msgstr "⌙ Langues"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
@@ -12029,7 +11932,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options_background_options
 msgid "⌙ Parallax"
-msgstr ""
+msgstr "⌙ Parallaxe"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_website_form_options
@@ -12049,7 +11952,7 @@ msgstr "⌙ Separateur"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "⌙ Small"
-msgstr ""
+msgstr "⌙ Petit"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
@@ -12069,7 +11972,7 @@ msgstr "⌙ Style"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "⌙ UTM Campaign"
-msgstr ""
+msgstr "⌙ UTM de la campagne"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
@@ -12084,7 +11987,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "⌙ Users"
-msgstr ""
+msgstr "⌙ Utilisateurs"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options_background_options

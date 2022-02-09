@@ -6,6 +6,7 @@
 # Martin Trigaux, 2021
 # Khwunchai Jaengsawang <khwunchai.j@ku.th>, 2021
 # Odoo Thaidev <odoothaidev@gmail.com>, 2021
+# Wichanon Jamwutthipreecha, 2021
 # 
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-05 10:55+0000\n"
 "PO-Revision-Date: 2021-09-14 12:24+0000\n"
-"Last-Translator: Odoo Thaidev <odoothaidev@gmail.com>, 2021\n"
+"Last-Translator: Wichanon Jamwutthipreecha, 2021\n"
 "Language-Team: Thai (https://www.transifex.com/odoo/teams/41243/th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -247,6 +248,8 @@ msgid ""
 "Changing VAT number is not allowed once document(s) have been issued for "
 "your account. Please contact us directly for this operation."
 msgstr ""
+"ไม่อนุญาตให้เปลี่ยนหมายเลข VAT เมื่อออกเอกสารสำหรับบัญชีของคุณแล้ว "
+"โปรดติดต่อเราโดยตรงสำหรับการดำเนินการนี้"
 
 #. module: portal
 #: model_terms:ir.ui.view,arch_db:portal.portal_my_details
@@ -254,6 +257,8 @@ msgid ""
 "Changing company name is not allowed once document(s) have been issued for "
 "your account. Please contact us directly for this operation."
 msgstr ""
+"ไม่อนุญาตให้เปลี่ยนชื่อบริษัทเมื่อมีการออกเอกสารสำหรับบัญชีของคุณแล้ว "
+"โปรดติดต่อเราโดยตรงสำหรับการดำเนินการนี้"
 
 #. module: portal
 #. openerp-web
@@ -308,7 +313,7 @@ msgstr "ติดต่อ"
 #. module: portal
 #: model_terms:ir.ui.view,arch_db:portal.portal_my_details
 msgid "Contact Details"
-msgstr ""
+msgstr "รายละเอียดการติดต่อ"
 
 #. module: portal
 #: model_terms:ir.ui.view,arch_db:portal.wizard_view
@@ -372,7 +377,7 @@ msgstr "URL ของลูกค้าที่เข้าถึงได้"
 #. module: portal
 #: model_terms:ir.ui.view,arch_db:portal.portal_share_template
 msgid "Dear"
-msgstr ""
+msgstr "เรียน"
 
 #. module: portal
 #. openerp-web
@@ -441,7 +446,7 @@ msgstr ""
 #. module: portal
 #: model_terms:ir.ui.view,arch_db:portal.wizard_view
 msgid "Grant Access"
-msgstr ""
+msgstr "ให้สิทธิ์การเข้าถึง"
 
 #. module: portal
 #: model:ir.model,name:portal.model_portal_wizard
@@ -480,7 +485,7 @@ msgstr "ผู้ใช้งาน"
 #: code:addons/portal/controllers/portal.py:0
 #, python-format
 msgid "Invalid Email! Please enter a valid email address."
-msgstr ""
+msgstr "อีเมลไม่ถูกต้อง! กรุณาใส่อีเมล์ที่ถูกต้อง."
 
 #. module: portal
 #: code:addons/portal/controllers/portal.py:0
@@ -591,7 +596,7 @@ msgstr "โน้ต"
 #. module: portal
 #: model_terms:ir.ui.view,arch_db:portal.portal_record_sidebar
 msgid "Odoo Logo"
-msgstr ""
+msgstr "โลโก้ Odoo "
 
 #. module: portal
 #. openerp-web
@@ -781,7 +786,7 @@ msgstr ""
 #: code:addons/portal/controllers/portal.py:0
 #, python-format
 msgid "Some required fields are empty."
-msgstr ""
+msgstr "ช่องที่ต้องกรอกบางช่องว่างเปล่า"
 
 #. module: portal
 #: model_terms:ir.ui.view,arch_db:portal.portal_my_details
@@ -798,7 +803,7 @@ msgstr "ที่อยู่"
 #: code:addons/portal/static/src/xml/portal_signature.xml:0
 #, python-format
 msgid "Thank You!"
-msgstr ""
+msgstr "ขอบคุณ!"
 
 #. module: portal
 #: code:addons/portal/controllers/portal.py:0

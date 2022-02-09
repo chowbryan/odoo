@@ -13,14 +13,15 @@
 # thanhnguyen.icsc <thanhnguyen.icsc@gmail.com>, 2021
 # Duy BQ <duybq86@gmail.com>, 2021
 # Dung Nguyen Thi <dungnt@trobz.com>, 2021
+# Vo Thanh Thuy, 2021
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server saas~14.5\n"
+"Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 10:29+0000\n"
+"POT-Creation-Date: 2021-11-16 13:19+0000\n"
 "PO-Revision-Date: 2021-09-14 12:25+0000\n"
-"Last-Translator: Dung Nguyen Thi <dungnt@trobz.com>, 2021\n"
+"Last-Translator: Vo Thanh Thuy, 2021\n"
 "Language-Team: Vietnamese (https://www.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1034,7 +1035,7 @@ msgstr ""
 #: model_terms:product.product,website_description:product.product_product_4d
 #: model_terms:product.template,website_description:product.product_product_4_product_template
 msgid "Ergonomic"
-msgstr ""
+msgstr "Hiệu quả, dễ sử dụng"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_template_attribute_value__exclude_for
@@ -1197,7 +1198,7 @@ msgstr "Chỉ số màu sắc theo HTML"
 #: model:ir.model.fields,field_description:product.field_product_product__has_message
 #: model:ir.model.fields,field_description:product.field_product_template__has_message
 msgid "Has Message"
-msgstr ""
+msgstr "Có tin nhắn"
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_attribute_value__html_color
@@ -1532,7 +1533,7 @@ msgstr "Dòng"
 #: model_terms:product.product,website_description:product.product_product_4d
 #: model_terms:product.template,website_description:product.product_product_4_product_template
 msgid "Locally handmade"
-msgstr ""
+msgstr "Sản xuất thủ công tại địa phương"
 
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.product_template_form_view
@@ -1550,6 +1551,8 @@ msgid ""
 "Looking for a custom bamboo stain to match existing furniture? Contact us "
 "for a quote."
 msgstr ""
+"Bạn đang tìm sản phẩm tre có thể điều chỉnh được để phù hợp với nội thất đã "
+"có? Liên hệ để nhận báo giá. "
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_product__message_main_attachment_id
@@ -1637,7 +1640,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:product.field_product_product__my_activity_date_deadline
 #: model:ir.model.fields,field_description:product.field_product_template__my_activity_date_deadline
 msgid "My Activity Deadline"
-msgstr ""
+msgstr "Hạn chót hoạt động"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_attribute_custom_value__name
@@ -1657,7 +1660,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:product.field_product_product__activity_calendar_event_id
 #: model:ir.model.fields,field_description:product.field_product_template__activity_calendar_event_id
 msgid "Next Activity Calendar Event"
-msgstr ""
+msgstr "Sự kiện lịch hoạt động tiếp theo"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_product__activity_date_deadline
@@ -1859,6 +1862,8 @@ msgid ""
 "Press a button and watch your desk glide effortlessly from sitting to "
 "standing height in seconds."
 msgstr ""
+"Nhấn nút và xem chiếc bàn nhẹ nhàng hạ xuống từ vị trí đứng xuống vị trí "
+"ngồi trong tích tắc. "
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_pricelist_item__price
@@ -2564,6 +2569,12 @@ msgid "The Internal Reference '%s' already exists."
 msgstr ""
 
 #. module: product
+#: code:addons/product/models/product_template.py:0
+#, python-format
+msgid "The Type of this product doesn't match the Detailed Type"
+msgstr ""
+
+#. module: product
 #: code:addons/product/models/product_attribute.py:0
 #, python-format
 msgid "The attribute %s must have at least one value for the product %s."
@@ -2616,6 +2627,7 @@ msgid ""
 "The minimum height is 65 cm, and for standing work the maximum height "
 "position is 125 cm."
 msgstr ""
+"Chiều cao tối thiểu là 65cm, và chiều cao tối đa ở vị trí đứng là 125cm."
 
 #. module: product
 #: code:addons/product/models/product_pricelist.py:0
@@ -3112,6 +3124,8 @@ msgid ""
 "We pay special attention to detail, which is why our desks are of a superior"
 " quality."
 msgstr ""
+"Chúng tôi đặc biệt chú ý tới chi tiết. Đó là lý do tại sao sản phẩm bàn học "
+"của chúng tôi có chất lượng tuyệt hảo. "
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_product__weight
